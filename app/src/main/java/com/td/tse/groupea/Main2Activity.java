@@ -16,7 +16,7 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         i = getIntent();
-        String val = i.getStringExtra("val");
+        String val = i.getStringExtra("STATIC_VALUE");
         editText = findViewById(R.id.txt);
         editText.setText(val);
 
@@ -25,7 +25,7 @@ public class Main2Activity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("editTextValue", editText.getText().toString());
+                intent.putExtra("DATA_VALUE", editText.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
             }

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         buttonNext.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                intent.putExtra("val" , textViewName.getText().toString());
+                intent.putExtra("STATIC_VALUE" , textViewName.getText().toString());
                 startActivityForResult(intent, 1);
             }
         });
@@ -36,9 +36,11 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            if(resultCode == RESULT_OK) {
-                String strEditText = data.getStringExtra("editTextValue");
+            if(resultCode == RESULT_OK && data.getExtras()!=null) {
+                String strEditText = data.getStringExtra("DATA_VALUE");
                 textViewName.setText(strEditText);
+            }else{
+                Toast.makeText(this.getApplicationContext(),resultCode,Toast.LENGTH_LONG).show();
             }
         }
     }
