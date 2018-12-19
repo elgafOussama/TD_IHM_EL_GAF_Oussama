@@ -15,18 +15,17 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        i = getIntent();
-        String val = i.getStringExtra("STATIC_VALUE");
         editText = findViewById(R.id.txt);
-        editText.setText(val);
 
         Button buttonBack = findViewById(R.id.btnBack);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("DATA_VALUE", editText.getText().toString());
-                setResult(RESULT_OK, intent);
+                //intent.putExtra("DATA_VALUE", editText.getText().toString());
+                //setResult(RESULT_OK, intent);
+                DataManager.getInstance().addName(editText.getText().toString());
+
                 finish();
             }
         });

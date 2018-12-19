@@ -3,36 +3,62 @@ package com.td.tse.groupea;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
-    private TextView textViewName;
+public class MainActivity extends AppCompatActivity implements NameItemListener{
+
+
     private Button buttonNext;
     private Intent intent;
+    private RecyclerView recyclerView;
+    private ListNameAdapter listNameAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textViewName = findViewById(R.id.lbl);
+        listNameAdapter=new ListNameAdapter(this);
+
+        //textViewName = findViewById(R.id.lbl);
         buttonNext = findViewById(R.id.btnNext);
+        recyclerView = findViewById(R.id.recyclerViewName);
+
+
+        // init list ---------------------------
+
+        final LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(listNameAdapter);
+        // End init list ---------------------------
 
         intent = new Intent(this,Main2Activity.class);
 
         buttonNext.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                intent.putExtra("STATIC_VALUE" , textViewName.getText().toString());
-                startActivityForResult(intent, 1);
+                //startActivityForResult(intent, 1);
+                startActivity(intent);
             }
         });
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        List nameList = DataManager.getInstance().getNameList();
+        listNameAdapter.updateData(nameList);
+    }
+
+    /*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
@@ -43,5 +69,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this.getApplicationContext(),resultCode,Toast.LENGTH_LONG).show();
             }
         }
+    }*/
+
+
+    @Override
+    public void onClickItem(String name) {
+        Toast.makeText(this,name,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onClickCross(String name) {
+        Toast.makeText(this,"Clic sur l'image de " + name,Toast.LENGTH_LONG).show();
     }
 }
