@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,7 +79,9 @@ public class MainActivity extends AppCompatActivity implements NameItemListener{
     }
 
     @Override
-    public void onClickCross(String name) {
-        Toast.makeText(this,"Clic sur l'image de " + name,Toast.LENGTH_LONG).show();
+    public void onClickCross(String name, View view) {
+        Toast.makeText(this,"delete " + name,Toast.LENGTH_LONG).show();
+        ((ViewGroup)view.getParent().getParent()).removeView((ViewGroup)view.getParent());
+
     }
 }

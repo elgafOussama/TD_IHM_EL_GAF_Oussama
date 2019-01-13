@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GroupeA</string>
     <string name="button">Next</string>
+    <string name="ajouter_a_la_liste">Ajouter a la liste</string>
 </resources>
